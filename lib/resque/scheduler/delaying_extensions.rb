@@ -90,7 +90,7 @@ module Resque
         redis.rpush("delayed:#{timestamp.to_i}", encode(item))
 
         # Store the timestamps at with this item occurs
-        redis.sadd("timestamps:#{encode(item)}", "delayed:#{timestamp.to_i}")
+        redis.sadd("timestamps:#{encode(item)}", ["delayed:#{timestamp.to_i}"])
 
         # Now, add this timestamp to the zsets.  The score and the value are
         # the same since we'll be querying by timestamp, and we don't have
